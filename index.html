@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mental Health Assessment</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f8ff;
+        }
+        h1 {
+            text-align: left;
+            font-size: 26px;
+            margin: 20px;
+        }
+        h2 {
+            text-align: left;
+            font-size: 18px;
+            font-weight: normal;
+            color: gray;
+            margin-left: 20px;
+            margin-top: -10px;
+        }
+        .container {
+            display: flex;
+            height: 100vh;
+        }
+        .left {
+            width: 50%;
+            padding: 20px;
+            background: white;
+            overflow-y: auto;
+        }
+        .right {
+            width: 50%;
+            border-left: 2px solid #ddd;
+        }
+        .question {
+            margin: 20px 0;
+        }
+        label {
+            font-weight: bold;
+        }
+        .slider-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-top: 10px;
+        }
+        .slider {
+            flex-grow: 1;
+            margin: 0 10px;
+        }
+        .options {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 5px;
+        }
+        button {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            margin-top: 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <h1>Mental Health Assessment</h1>
+    <h2>by Group 12</h2>
+    <div class="container">
+        <div class="left">
+            <form id="assessmentForm">
+                <div id="questions"></div>
+                <button type="submit">Submit</button>
+            </form>
+        </div>
+        <iframe class="right" name="resultFrame" src="results.html"></iframe>
+    </div>
+
+    <script>
+        const questions = [
+            "How often do you feel overwhelmed by daily tasks?",
+            "How well do you sleep at night?",
+            "How often do you feel genuinely happy and content?",
+            "How often do you feel irritated or easily frustrated?",
+            "How strong is your social support system?",
+            "Do you struggle to focus on tasks due to stress?",
+            "How often do you engage in activities that make you happy?",
+            "How often do you experience stress-related symptoms?",
+            "How hopeful do you feel about your future?",
+            "How well do you manage stress?"
+        ];
+        
+        const options = ["Never", "Rarely", "Sometimes", "Often", "Always"];
+        const questionsDiv = document.getElementById("questions");
+        
+        questions.forEach((q, index) => {
+            let div = document.createElement("div");
+            div.classList.add("question");
+            div.innerHTML = `
+                <label>${q}</label><br>
+                <div class="slider-container">
+                    <span>1</span>
+                    <input type="range" min="1" max="5" value="3" id="q${index}" class="slider">
+                    <span>5</span>
+                </div>
+                <div class="options">
+                    ${options.map((opt) => `<span>${opt}</span>`).join('')}
+                </div>
+            `;
+            questionsDiv.appendChild(div);
+        });
+
+        document.getElementById("assessmentForm").addEventListener("submit", function(event) {
+            event.preventDefault();
+            let totalScore = 0;
+
+            for (let i = 0; i < questions.length; i++) {
+                totalScore += parseInt(document.getElementById(`q${i}`).value);
+            }
+            
+            window.open(`results.html?score=${totalScore}`, "resultFrame");
+        });
+    </script>
+</body>
+</html>

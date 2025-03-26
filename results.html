@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Assessment Results</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #e6f7ff;
+        }
+        h1 {
+            text-align: center;
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+        .result-box {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        .result-text {
+            font-size: 18px;
+            text-align: center;
+            margin-bottom: 10px;
+        }
+        .solutions {
+            margin-top: 20px;
+        }
+        .solutions h2 {
+            font-size: 20px;
+            color: #0073e6;
+        }
+        ul {
+            padding-left: 20px;
+        }
+        li {
+            margin-bottom: 8px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Assessment Results</h1>
+    <div class="result-box">
+        <div class="result-text" id="resultText"></div>
+        <div class="solutions" id="solutions"></div>
+    </div>
+    
+    <script>
+        function getParameterByName(name) {
+            let url = new URL(window.location.href);
+            return parseInt(url.searchParams.get(name));
+        }
+        
+        let score = getParameterByName("score");
+        let resultText = document.getElementById("resultText");
+        let solutionsDiv = document.getElementById("solutions");
+        
+        let resultCategory = "";
+        let solutions = "";
+
+        if (score >= 40) {
+            resultCategory = "😊 Very Low Stress, High Happiness";
+            solutions = `<h2>How to Maintain Your Positive Mindset:</h2>
+                         <ul>
+                             <li>Stay socially connected with loved ones.</li>
+                             <li>Practice gratitude daily.</li>
+                             <li>Continue engaging in activities that bring you joy.</li>
+                             <li>Exercise regularly for mental and physical well-being.</li>
+                             <li>Help others to boost your own happiness.</li>
+                         </ul>`;
+        } else if (score >= 30) {
+            resultCategory = "😐 Moderate Well-being, Some Stress";
+            solutions = `<h2>How to Reduce Stress:</h2>
+                         <ul>
+                             <li>Improve sleep hygiene by maintaining a consistent bedtime.</li>
+                             <li>Identify stress triggers and work on minimizing them.</li>
+                             <li>Engage in relaxation activities like meditation.</li>
+                             <li>Maintain a balanced diet and hydrate well.</li>
+                             <li>Express your feelings through journaling or conversations.</li>
+                         </ul>`;
+        } else if (score >= 20) {
+            resultCategory = "😟 High Stress, Needs Improvement";
+            solutions = `<h2>How to Manage High Stress:</h2>
+                         <ul>
+                             <li>Break tasks into small, achievable steps.</li>
+                             <li>Reconnect with your support system.</li>
+                             <li>Limit stimulants like caffeine and screen time.</li>
+                             <li>Engage in regular physical activity to relieve stress.</li>
+                             <li>Practice deep breathing and mindfulness techniques.</li>
+                         </ul>`;
+        } else {
+            resultCategory = "😢 Severe Stress, Potential Mental Health Concerns";
+            solutions = `<h2>Immediate Steps to Improve Mental Health:</h2>
+                         <ul>
+                             <li>Consider talking to a mental health professional.</li>
+                             <li>Establish a daily routine to add stability.</li>
+                             <li>Engage in grounding techniques like the 5-4-3-2-1 method.</li>
+                             <li>Limit exposure to negative influences and social media.</li>
+                             <li>Seek immediate support from family, friends, or a crisis hotline.</li>
+                         </ul>`;
+        }
+        
+        resultText.innerHTML = `<strong>Your Score: ${score}</strong><br>${resultCategory}`;
+        solutionsDiv.innerHTML = solutions;
+    </script>
+</body>
+</html>
