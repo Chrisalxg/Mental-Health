@@ -3,46 +3,50 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mental Health Assessment</title>
+    <title>Mental Health Assessment by Group 12</title>
     <style>
         body {
             font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
             margin: 0;
-            padding: 0;
-            background-color: #f0f8ff;
-        }
-        h1 {
-            text-align: left;
-            font-size: 26px;
-            margin: 20px;
-        }
-        h2 {
-            text-align: left;
-            font-size: 18px;
-            font-weight: normal;
-            color: gray;
-            margin-left: 20px;
-            margin-top: -10px;
-        }
-        .container {
+            padding: 20px;
             display: flex;
-            height: 100vh;
         }
-        .left {
+        #container {
             width: 50%;
             padding: 20px;
             background: white;
-            overflow-y: auto;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
-        .right {
-            width: 50%;
-            border-left: 2px solid #ddd;
+        h1 {
+            text-align: left;
+            font-size: 24px;
         }
-        .question {
-            margin: 20px 0;
+        h1 span {
+            font-size: 18px;
+            color: gray;
         }
         label {
             font-weight: bold;
+            display: block;
+            margin-top: 15px;
+        }
+        input, button {
+            width: 100%;
+            padding: 10px;
+            margin-top: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        button {
+            background-color: #28a745;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #218838;
         }
         .slider-container {
             display: flex;
@@ -50,89 +54,104 @@
             justify-content: space-between;
             margin-top: 10px;
         }
-        .slider {
-            flex-grow: 1;
-            margin: 0 10px;
-        }
-        .options {
-            display: flex;
-            justify-content: space-between;
-            margin-top: 5px;
-        }
-        button {
-            display: block;
-            width: 100%;
-            padding: 10px;
-            margin-top: 20px;
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            font-size: 16px;
-            cursor: pointer;
-            border-radius: 5px;
-        }
-        button:hover {
-            background-color: #45a049;
-        }
     </style>
 </head>
 <body>
-    <h1>Mental Health Assessment</h1>
-    <h2>by Group 12</h2>
-    <div class="container">
-        <div class="left">
-            <form id="assessmentForm">
-                <div id="questions"></div>
-                <button type="submit">Submit</button>
-            </form>
-        </div>
-        <iframe class="right" name="resultFrame" src="results.html"></iframe>
+    <div id="container">
+        <h1>Mental Health Assessment <br><span>by Group 12</span></h1>
+        <label for="name">Enter Your Name:</label>
+        <input type="text" id="name" placeholder="Your Name" required>
+        
+        <form id="quizForm">
+            <label>1. How often do you feel overwhelmed by stress?</label>
+            <div class="slider-container">
+                <span>Never</span>
+                <input type="range" min="1" max="5" value="3" id="q1">
+                <span>Always</span>
+            </div>
+            
+            <label>2. How well do you sleep at night?</label>
+            <div class="slider-container">
+                <span>Very Poor</span>
+                <input type="range" min="1" max="5" value="3" id="q2">
+                <span>Very Well</span>
+            </div>
+            
+            <label>3. How often do you engage in activities that make you happy?</label>
+            <div class="slider-container">
+                <span>Never</span>
+                <input type="range" min="1" max="5" value="3" id="q3">
+                <span>Always</span>
+            </div>
+            
+            <label>4. How supported do you feel by friends and family?</label>
+            <div class="slider-container">
+                <span>Not at all</span>
+                <input type="range" min="1" max="5" value="3" id="q4">
+                <span>Fully Supported</span>
+            </div>
+            
+            <label>5. How often do you experience anxiety?</label>
+            <div class="slider-container">
+                <span>Never</span>
+                <input type="range" min="1" max="5" value="3" id="q5">
+                <span>Always</span>
+            </div>
+            
+            <label>6. How well can you manage stressful situations?</label>
+            <div class="slider-container">
+                <span>Poorly</span>
+                <input type="range" min="1" max="5" value="3" id="q6">
+                <span>Very Well</span>
+            </div>
+            
+            <label>7. Do you find time to relax and unwind daily?</label>
+            <div class="slider-container">
+                <span>Never</span>
+                <input type="range" min="1" max="5" value="3" id="q7">
+                <span>Always</span>
+            </div>
+            
+            <label>8. How often do you feel optimistic about the future?</label>
+            <div class="slider-container">
+                <span>Never</span>
+                <input type="range" min="1" max="5" value="3" id="q8">
+                <span>Always</span>
+            </div>
+            
+            <label>9. How often do you feel physically exhausted due to stress?</label>
+            <div class="slider-container">
+                <span>Never</span>
+                <input type="range" min="1" max="5" value="3" id="q9">
+                <span>Always</span>
+            </div>
+            
+            <label>10. How satisfied are you with your overall mental health?</label>
+            <div class="slider-container">
+                <span>Not at all</span>
+                <input type="range" min="1" max="5" value="3" id="q10">
+                <span>Very Satisfied</span>
+            </div>
+            
+            <button type="button" onclick="submitForm()">Submit</button>
+        </form>
     </div>
 
     <script>
-        const questions = [
-            "How often do you feel overwhelmed by daily tasks?",
-            "How well do you sleep at night?",
-            "How often do you feel genuinely happy and content?",
-            "How often do you feel irritated or easily frustrated?",
-            "How strong is your social support system?",
-            "Do you struggle to focus on tasks due to stress?",
-            "How often do you engage in activities that make you happy?",
-            "How often do you experience stress-related symptoms?",
-            "How hopeful do you feel about your future?",
-            "How well do you manage stress?"
-        ];
-        
-        const options = ["Never", "Rarely", "Sometimes", "Often", "Always"];
-        const questionsDiv = document.getElementById("questions");
-        
-        questions.forEach((q, index) => {
-            let div = document.createElement("div");
-            div.classList.add("question");
-            div.innerHTML = `
-                <label>${q}</label><br>
-                <div class="slider-container">
-                    <span>1</span>
-                    <input type="range" min="1" max="5" value="3" id="q${index}" class="slider">
-                    <span>5</span>
-                </div>
-                <div class="options">
-                    ${options.map((opt) => `<span>${opt}</span>`).join('')}
-                </div>
-            `;
-            questionsDiv.appendChild(div);
-        });
-
-        document.getElementById("assessmentForm").addEventListener("submit", function(event) {
-            event.preventDefault();
-            let totalScore = 0;
-
-            for (let i = 0; i < questions.length; i++) {
-                totalScore += parseInt(document.getElementById(`q${i}`).value);
+        function submitForm() {
+            let name = document.getElementById('name').value;
+            if (!name) {
+                alert('Please enter your name.');
+                return;
             }
-            
-            window.open(`results.html?score=${totalScore}`, "resultFrame");
-        });
+            let score = 0;
+            for (let i = 1; i <= 10; i++) {
+                score += parseInt(document.getElementById('q' + i).value);
+            }
+            localStorage.setItem('name', name);
+            localStorage.setItem('score', score);
+            window.location.href = 'results.html';
+        }
     </script>
 </body>
 </html>
